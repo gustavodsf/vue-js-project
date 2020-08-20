@@ -1,4 +1,4 @@
-import './fontawesome'
-import './buefy'
-import './vuelidate'
-import './firebase'
+import "./fontawesome";
+import "./buefy";
+import "./vuelidate";
+import "./firebase";

@@ -1,45 +1,60 @@
 <template>
   <section class="section">
     <div class="container">
-      <h1 class="title"
-        v-if="currentRoute === 'stageCreate'">
-        {{ $t('default.label.add', [ $tc('default.label.stage', 1) ]) }}
+      <h1 class="title" v-if="currentRoute === 'stageCreate'">
+        {{ $t("default.label.add", [$tc("default.label.stage", 1)]) }}
       </h1>
 
-      <h1 class="title"
-        v-if="currentRoute === 'stageEdit'">
-        {{ $t('default.label.edit', [ $tc('default.label.stage', 1) ]) }}
+      <h1 class="title" v-if="currentRoute === 'stageEdit'">
+        {{ $t("default.label.edit", [$tc("default.label.stage", 1)]) }}
       </h1>
 
       <div class="box">
         <b-field
           v-bind:label="$tc('default.label.number', 1)"
           v-bind:type="{ 'is-danger': $v.stage.number.$error }"
-          v-bind:message="[ !$v.stage.number.required && $v.stage.number.$error ? $t('error.field.is.required'):'',
-                            !$v.stage.number.minValue && $v.stage.number.$error ? $t('error.minValue', [ '0' ]):'' ]">
+          v-bind:message="[
+            !$v.stage.number.required && $v.stage.number.$error
+              ? $t('error.field.is.required')
+              : '',
+            !$v.stage.number.minValue && $v.stage.number.$error
+              ? $t('error.minValue', ['0'])
+              : ''
+          ]"
+        >
           <b-numberinput
             v-model="stage.number"
             v-bind:disabled="isUnderRequest"
-            min="0"/>
+            min="0"
+          />
         </b-field>
 
         <b-field
           v-bind:label="$t('stage.view.form.label.name')"
           v-bind:type="{ 'is-danger': $v.stage.name.$error }"
-          v-bind:message="[ !$v.stage.name.required && $v.stage.name.$error ? $t('error.field.is.required'):'']">
-          <b-input
-            v-model.trim="stage.name"
-            v-bind:disabled="isUnderRequest"/>
+          v-bind:message="[
+            !$v.stage.name.required && $v.stage.name.$error
+              ? $t('error.field.is.required')
+              : ''
+          ]"
+        >
+          <b-input v-model.trim="stage.name" v-bind:disabled="isUnderRequest" />
         </b-field>
 
         <b-field
           v-bind:label="$t('stage.view.form.label.description')"
           v-bind:type="{ 'is-danger': $v.stage.description.$error }"
-          v-bind:message="[ !$v.stage.description.required && $v.stage.description.$error ? $t('error.field.is.required'):'']">
+          v-bind:message="[
+            !$v.stage.description.required && $v.stage.description.$error
+              ? $t('error.field.is.required')
+              : ''
+          ]"
+        >
           <b-input
             v-model.trim="stage.description"
             v-bind:disabled="isUnderRequest"
-            type="textarea"/>
+            type="textarea"
+          />
         </b-field>
 
         <b-field v-bind:label="$t('stage.view.form.label.archetypes')">
@@ -50,8 +65,11 @@
             v-on:typing="getFilteredArchetypes"
             field="name"
             type="is-primary"
-            autocomplete>
-            <template slot="empty">{{ $t('default.label.no.result') }}</template>
+            autocomplete
+          >
+            <template slot="empty">{{
+              $t("default.label.no.result")
+            }}</template>
           </b-taginput>
         </b-field>
 
@@ -59,21 +77,25 @@
           <b-taginput
             v-model="stage.contexts"
             v-bind:disabled="isUnderRequest"
-            type="is-primary"/>
+            type="is-primary"
+          />
         </b-field>
 
         <b-field v-bind:label="$t('stage.view.form.label.keyPhrases')">
           <b-taginput
             v-model="stage.keyPhrases"
             v-bind:disabled="isUnderRequest"
-            type="is-primary"/>
+            type="is-primary"
+          />
         </b-field>
 
         <b-field v-bind:label="$t('stage.view.form.label.isRequired')">
-          <b-switch
-            v-model="stage.isRequired"
-            v-bind:disabled="isUnderRequest">
-            {{ stage.isRequired ? $t('default.label.required') : $t('default.label.optional') }}
+          <b-switch v-model="stage.isRequired" v-bind:disabled="isUnderRequest">
+            {{
+              stage.isRequired
+                ? $t("default.label.required")
+                : $t("default.label.optional")
+            }}
           </b-switch>
         </b-field>
 
@@ -83,8 +105,9 @@
             v-on:click="addStage"
             v-bind:loading="isUnderRequest"
             type="is-primary"
-            rounded>
-            {{ $t('default.label.add', [ $tc('default.label.stage', 1) ]) }}
+            rounded
+          >
+            {{ $t("default.label.add", [$tc("default.label.stage", 1)]) }}
           </b-button>
 
           <b-button
@@ -92,8 +115,9 @@
             v-on:click="editStage"
             v-bind:loading="isUnderRequest"
             type="is-primary"
-            rounded>
-            {{ $t('default.label.edit', [ $tc('default.label.stage', 1) ]) }}
+            rounded
+          >
+            {{ $t("default.label.edit", [$tc("default.label.stage", 1)]) }}
           </b-button>
         </div>
       </div>
@@ -102,25 +126,25 @@
 </template>
 
 <script>
-import { required, minValue } from 'vuelidate/lib/validators'
-import { db } from '@/libs/firebase'
+import { required, minValue } from "vuelidate/lib/validators";
+import { db } from "@/libs/firebase";
 
 export default {
-  data () {
+  data() {
     return {
       currentRoute: this.$route.name,
       archetypesList: null,
       filteredArchetypesList: [],
       stage: {
         number: 0,
-        name: '',
-        description: '',
+        name: "",
+        description: "",
         archetypes: [],
         contexts: [],
         keyPhrases: [],
         isRequired: false
       }
-    }
+    };
   },
   validations: {
     stage: {
@@ -137,60 +161,68 @@ export default {
     }
   },
   methods: {
-    async getArchetypes () {
+    async getArchetypes() {
       try {
-        await this.$bind('archetypesList', db.collection('archetypes'))
-        this.filteredArchetypesList = this.archetypesList
+        await this.$bind("archetypesList", db.collection("archetypes"));
+        this.filteredArchetypesList = this.archetypesList;
       } catch (error) {
-        throw error
+        throw error;
       }
     },
-    getFilteredArchetypes (text) {
-      this.filteredArchetypesList = this.archetypesList.filter((archetype) => {
-        return archetype.name.toString().toLowerCase().indexOf(text.toLowerCase()) >= 0
-      })
+    getFilteredArchetypes(text) {
+      this.filteredArchetypesList = this.archetypesList.filter(archetype => {
+        return (
+          archetype.name
+            .toString()
+            .toLowerCase()
+            .indexOf(text.toLowerCase()) >= 0
+        );
+      });
     },
-    async addStage () {
-      this.startRequest()
+    async addStage() {
+      this.startRequest();
       try {
-        this.$v.$touch()
+        this.$v.$touch();
         if (!this.$v.$invalid) {
-          await db.collection('stages').add(this.stage)
+          await db.collection("stages").add(this.stage);
 
-          this.$router.push({ name: 'stageList' })
+          this.$router.push({ name: "stageList" });
         }
       } catch (error) {
-        this.errorHandler(error)
+        this.errorHandler(error);
       }
-      this.endRequest()
+      this.endRequest();
     },
-    async getStage (id) {
-      this.startRequest()
+    async getStage(id) {
+      this.startRequest();
       try {
-        await this.$bind('stage', db.collection('stages').doc(id))
+        await this.$bind("stage", db.collection("stages").doc(id));
       } catch (error) {
-        this.errorHandler(error)
+        this.errorHandler(error);
       }
-      this.endRequest()
+      this.endRequest();
     },
-    async editStage () {
-      this.startRequest()
+    async editStage() {
+      this.startRequest();
       try {
-        await db.collection('stages').doc(this.stage.id).update(this.stage)
+        await db
+          .collection("stages")
+          .doc(this.stage.id)
+          .update(this.stage);
 
-        this.$router.push({ name: 'stageList' })
+        this.$router.push({ name: "stageList" });
       } catch (error) {
-        this.errorHandler(error)
+        this.errorHandler(error);
       }
-      this.endRequest()
+      this.endRequest();
     }
   },
-  mounted () {
-    this.getArchetypes()
+  mounted() {
+    this.getArchetypes();
 
     if (this.$route.params.id) {
-      this.getStage(this.$route.params.id)
+      this.getStage(this.$route.params.id);
     }
   }
-}
+};
 </script>

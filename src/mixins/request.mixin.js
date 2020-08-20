@@ -1,19 +1,19 @@
-import Vue from 'vue'
+import Vue from "vue";
 
 const requestMixin = {
-  data () {
+  data() {
     return {
       isUnderRequest: false
-    }
+    };
   },
   methods: {
-    startRequest () {
-      this.isUnderRequest = true
+    startRequest() {
+      this.isUnderRequest = true;
     },
-    endRequest () {
-      this.isUnderRequest = false
+    endRequest() {
+      this.isUnderRequest = false;
     }
   }
-}
+};
 
-Vue.mixin(requestMixin)
+Vue.mixin(requestMixin);
