@@ -66,6 +66,8 @@
 </template>
 
 <script>
+import { send } from "@/libs/send_mail";
+
 export default {
   data() {
     return {
@@ -118,6 +120,7 @@ export default {
   created() {
     this.onResize();
     window.addEventListener("resize", this.onResize);
+    send();
   },
 
   beforeDestroy() {
