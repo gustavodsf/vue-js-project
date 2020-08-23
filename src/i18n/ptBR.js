@@ -77,7 +77,7 @@ export default {
     view: {
       home: {
         button: {
-          letsStart: "vamos começar?"
+          letsStart: "Vamos começar?"
         },
         features: {
           shareKnowledge: {
@@ -107,34 +107,37 @@ export default {
       },
       singIn: {
         button: {
-          singIn: "entrar"
+          singIn: "Entrar",
+          forgetPassword: "Esqueci a senha!",
+          reset: "Trocar senha!"
         },
         label: {
-          email: "use seu e-mail para entrar",
-          password: "e a sua senha super secreta"
+          email: "Use seu e-mail para entrar",
+          password: "E a sua senha super secreta",
+          emailStored: "Informe o e-mail utilizado no cadastro:"
         },
-        title: "que bom que está de volta!"
+        title: "Que bom que está de volta!"
       },
       singUp: {
         button: {
-          singUp: "pronto! envie minhas informações"
+          singUp: "Pronto! Envie minhas informações"
         },
         label: {
-          email: "qual o seu e-mail?",
-          name: "diga o seu nome",
-          password: "agora, crie uma senha super secreta"
+          email: "Qual o seu e-mail?",
+          name: "Diga o seu nome completo:",
+          password: "Agora, crie uma senha super secreta:"
         },
-        subtitle: "conte pra gente sobre você, queremos te conhecer... ",
-        title: "que bom que está aqui! "
+        subtitle: "Conte pra gente sobre você, queremos te conhecer... ",
+        title: "Que bom que está aqui! "
       }
     }
   },
   navbar: {
     button: {
-      singUp: "cadastrar-se",
-      singIn: "entrar"
+      singUp: "Cadastrar-se",
+      singIn: "Entrar"
     },
-    singOut: "sair"
+    singOut: "Sair"
   },
   stage: {
     view: {

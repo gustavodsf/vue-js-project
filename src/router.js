@@ -35,11 +35,18 @@ const router = new Router({
             import(/* webpackChunkName: "init" */ "@/app/SingIn.vue")
         },
         {
+          path: "forgetpass",
+          name: "forgetPass",
+          component: () =>
+            import(/* webpackChunkName: "init" */ "@/app/ForgetPass.vue")
+        },
+        {
           path: "404",
           name: "404",
           component: () =>
             import(/* webpackChunkName: "init" */ "@/app/404.vue")
         },
+
         archetype,
         stage,
         story

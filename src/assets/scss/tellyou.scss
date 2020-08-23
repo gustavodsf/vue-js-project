@@ -8,3 +8,11 @@ body {
 .navbar-link.navbar-item.has-dropdown.is-active {
     background-color: $secondary !important;
 }
+
+.navbar-item img {
+  min-height: 2.75rem !important;
+}
+
+.my-singin-btn{
+  margin-left: 0.5rem;
+}

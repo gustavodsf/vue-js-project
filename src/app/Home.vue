@@ -20,6 +20,14 @@
               >
                 {{ $t("home.view.home.button.letsStart") }}
               </router-link>
+              <span class="my-singin-btn">
+                <router-link
+                  class="button is-primary is-medium is-rounded"
+                  v-bind:to="{ name: 'singIn' }"
+                >
+                  {{ $t("navbar.button.singIn") }}
+                </router-link>
+              </span>
             </div>
 
             <div class="column">

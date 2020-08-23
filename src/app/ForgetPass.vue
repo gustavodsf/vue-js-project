@@ -14,7 +14,7 @@
           <div class="column is-half is-offset-one-quarter">
             <div class="box">
               <b-field
-                v-bind:label="$t('home.view.singIn.label.email')"
+                v-bind:label="$t('home.view.singIn.label.emailStored')"
                 v-bind:type="{ 'is-danger': $v.email.$error }"
                 v-bind:message="[
                   !$v.email.required && $v.email.$error
@@ -31,45 +31,15 @@
                   type="email"
                 />
               </b-field>
-
-              <b-field
-                v-bind:label="$t('home.view.singIn.label.password')"
-                v-bind:type="{ 'is-danger': $v.password.$error }"
-                v-bind:message="[
-                  !$v.password.required && $v.password.$error
-                    ? $t('error.field.is.required')
-                    : '',
-                  !$v.password.minLength && $v.password.$error
-                    ? $t('error.password.minLength', { minLength: 6 })
-                    : ''
-                ]"
-              >
-                <b-input
-                  v-model.trim="password"
-                  v-bind:disabled="isUnderRequest"
-                  type="password"
-                  password-reveal
-                />
-              </b-field>
-
               <div class="has-text-centered">
                 <b-button
-                  v-on:click="singIn"
+                  v-on:click="resetPassword"
                   v-bind:loading="isUnderRequest"
                   type="is-primary"
                   rounded
                 >
-                  {{ $t("home.view.singIn.button.singIn") }}
+                  {{ $t("home.view.singIn.button.reset") }}
                 </b-button>
-                <span class="my-singin-btn">
-                  <router-link
-                    class="button is-primary is-rounded"
-                    v-bind:class="{ 'is-outlined': !isMobile }"
-                    v-bind:to="{ name: 'forgetPass' }"
-                  >
-                    {{ $t("home.view.singIn.button.forgetPassword") }}
-                  </router-link>
-                </span>
               </div>
             </div>
           </div>
@@ -81,38 +51,32 @@
 
 <script>
 import firebase from "firebase/app";
-import { required, email, minLength } from "vuelidate/lib/validators";
+import { required, email } from "vuelidate/lib/validators";
 
 export default {
   data() {
     return {
       name: "",
-      email: "",
-      password: ""
+      email: ""
     };
   },
   validations: {
     email: {
       required,
       email
-    },
-    password: {
-      required,
-      minLength: minLength(6)
     }
   },
   methods: {
-    async singIn() {
+    async resetPassword() {
       this.startRequest();
 
       try {
         this.$v.$touch();
 
         if (!this.$v.$invalid) {
-          await firebase
-            .auth()
-            .signInWithEmailAndPassword(this.email, this.password);
-          this.$router.push({ name: "storyList" });
+          let auth = firebase.auth();
+          await auth.sendPasswordResetEmail(this.email);
+          this.$router.push({ name: "home" });
         }
       } catch (error) {
         this.errorHandler(error);
