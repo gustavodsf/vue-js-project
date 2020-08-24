@@ -129,8 +129,9 @@ export default {
 
           db.collection("users").add({
             uid: user.uid,
-            name: user.displayName,
-            email: user.email
+            name: this.name,
+            email: user.email,
+            type: "user"
           });
 
           this.$router.push({ name: "storyList" });
