@@ -107,28 +107,28 @@ export default {
       },
       singIn: {
         button: {
-          singIn: "Entrar",
-          forgetPassword: "Esqueci a senha!",
-          reset: "Trocar senha!"
+          singIn: "entrar",
+          forgetPassword: "esqueci a senha!",
+          reset: "trocar senha!"
         },
         label: {
-          email: "Use seu e-mail para entrar",
-          password: "E a sua senha super secreta",
-          emailStored: "Informe o e-mail utilizado no cadastro:"
+          email: "use seu e-mail para entrar",
+          password: "e a sua senha super secreta",
+          emailStored: "informe o e-mail utilizado no cadastro"
         },
         title: "Que bom que está de volta!"
       },
       singUp: {
         button: {
-          singUp: "Pronto! Envie minhas informações"
+          singUp: "envie minhas informações"
         },
         label: {
-          email: "Qual o seu e-mail?",
-          name: "Diga o seu nome completo:",
-          password: "Agora, crie uma senha super secreta:"
+          email: "qual seu e-mail para contato?",
+          name: "como podemos te chamar?",
+          password: "Agora, aquela senha para proteger a conta ;)"
         },
-        subtitle: "Conte pra gente sobre você, queremos te conhecer... ",
-        title: "Que bom que está aqui! "
+        title: "É um imenso prazer tê-lo aqui! ",
+        subtitle: "Conte pra gente sobre você, queremos te conhecer... "
       }
     }
   },

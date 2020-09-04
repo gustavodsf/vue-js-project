@@ -112,12 +112,13 @@ export default {
           await firebase
             .auth()
             .signInWithEmailAndPassword(this.email, this.password);
+          let idToken = await firebase.auth().currentUser.getIdToken(true);
+          console.log(idToken);
           this.$router.push({ name: "storyList" });
         }
       } catch (error) {
         this.errorHandler(error);
       }
-
       this.endRequest();
     }
   }

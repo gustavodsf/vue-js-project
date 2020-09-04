@@ -87,9 +87,8 @@
 </template>
 
 <script>
-import firebase from "firebase/app";
+import axios from "axios";
 import { required, email, minLength } from "vuelidate/lib/validators";
-import { db } from "@/libs/firebase";
 
 export default {
   data() {
@@ -120,26 +119,36 @@ export default {
         this.$v.$touch();
 
         if (!this.$v.$invalid) {
-          await firebase
-            .auth()
-            .createUserWithEmailAndPassword(this.email, this.password);
-
-          const user = firebase.auth().currentUser;
-          user.updateProfile({ displayName: this.name });
-
-          db.collection("users").add({
-            uid: user.uid,
-            name: this.name,
-            email: user.email,
-            type: "user"
+          const result = await axios.post(
+            this.$store.state.urlBack + "user/add",
+            {
+              user: {
+                email: this.email,
+                name: this.name,
+                password: this.password
+              }
+            }
+          );
+          console.log(result);
+          this.$notify({
+            group: "msg",
+            title: "Olá!",
+            text: "O Usuário foi criado com sucesso."
           });
-
+          this.email = "";
+          this.name = "";
+          this.password = "";
           this.$router.push({ name: "storyList" });
         }
       } catch (error) {
-        this.errorHandler(error);
+        this.$notify({
+          group: "msg",
+          title: "Olá!",
+          text:
+            "Já existe o email informado em nossa base de dados. Fale com o adminstrador do sistema.",
+          type: "error"
+        });
       }
-
       this.endRequest();
     }
   }

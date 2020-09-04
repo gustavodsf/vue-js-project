@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <notifications group="msg" position="top left" />
     <tellyou-navbar />
     <router-view />
   </div>
