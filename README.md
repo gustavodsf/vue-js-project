@@ -1,4 +1,4 @@
-# tellyou-firebase
+# vue-js-with-firebase
 
 ## Project setup
 ```
